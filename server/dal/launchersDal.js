@@ -14,3 +14,6 @@ export async function addLauncherDal(launcher) {
   const newLauncher = new Launcher(launcher);
   return newLauncher.save();
 }
+export async function removeLauncherDal(id) {
+  return await Launcher.deleteOne({ _id: id });
+}

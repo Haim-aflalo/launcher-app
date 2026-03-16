@@ -21,9 +21,9 @@ function AddLauncherForm() {
     }
   }
   return (
-    <div>
-      <h1>Add a new launcher</h1>
-      <form onSubmit={addLauncher}>
+    <div className="add-form">
+      <h1>ADD A NEW LAUNCHER</h1>
+      <form onSubmit={addLauncher} className="form">
         <input
           type="text"
           placeholder="enter the rocket name"

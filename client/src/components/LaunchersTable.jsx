@@ -23,32 +23,30 @@ function LaunchersTable() {
   }
   useEffect(() => {
     fetchLaunchers();
-    console.log(rocketType);
   }, [rocketType, city]);
 
   return (
-    <div>
+    <div className="table">
+      <h1>ALL LAUNCHERS</h1>
+
       <input
         type="text"
         placeholder="filter by city"
         onChange={(e) => setCity(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="filter by type"
-        onChange={(e) => setRocketType(e.target.value)}
-      />
-      {/* <select
+      <select
         name="reocketType"
         id="rocketType"
         onChange={(e) => setRocketType(e.target.value)}
       >
         <option value="">Choose a rocket type</option>
+        <option value=""> all rocket type</option>
         <option value="Shahab3">Shahab3</option>
         <option value="Fetah110">Fetah110</option>
         <option value="Radwan">Radwan</option>
         <option value="Kheibar">Kheibar</option>
-      </select> */}
+      </select>
+
       <ul>
         {launchers
           .filter((launcher) => launcher.city === city || city === "")
@@ -57,10 +55,10 @@ function LaunchersTable() {
               launcher.rocketType === rocketType || rocketType === "",
           )
           .map((launcher) => (
-            <li>
-              <p>Name:{launcher.name}</p>
-              <p>City:{launcher.city}</p>
-              <p>rocket type:{launcher.rocketType}</p>
+            <li className="launcher-card">
+              <p>Name: {launcher.name}</p>
+              <p>City: {launcher.city}</p>
+              <p>rocket type: {launcher.rocketType}</p>
               <button onClick={() => navToDetails(launcher._id)}>
                 Get details
               </button>

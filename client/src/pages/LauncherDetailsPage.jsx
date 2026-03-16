@@ -1,9 +1,13 @@
-import React from 'react'
+import Navbar from "../components/Navbar";
+import Details from "../components/Details";
 
 function LauncherDetailsPage() {
   return (
-    <div>LauncherDetailsPage</div>
-  )
+    <div>
+      <Navbar />
+      <Details />
+    </div>
+  );
 }
 
-export default LauncherDetailsPage
+export default LauncherDetailsPage;

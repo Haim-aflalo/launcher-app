@@ -15,7 +15,7 @@ export async function getLaunchersController(req, res) {
 }
 export async function getLaunchersByIdController(req, res) {
   try {
-    const { id } = req.body;
+    const { id } = req.headers;
     const launcher = await getLauncherByIdService(id);
     res.status(200).json(launcher);
   } catch (error) {

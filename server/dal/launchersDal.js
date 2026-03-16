@@ -3,6 +3,9 @@ import { launcherSchema } from "../models/launcherModels.js";
 
 const Launcher = mongoose.model("launchers", launcherSchema);
 
-export async function getAllLAnchersDal() {
+export async function getLaunchersDal() {
   return await Launcher.find({});
+}
+export async function getLauncherByIdDal(id) {
+  return await Launcher.findById(id).exec();
 }

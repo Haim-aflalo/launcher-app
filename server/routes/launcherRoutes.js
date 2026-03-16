@@ -1,6 +1,10 @@
 import express from "express";
-import { getLanchersController } from "../controllers/getLaunchers.js";
+import {
+  getLaunchersByIdController,
+  getLaunchersController,
+} from "../controllers/launchersControllers.js";
 
 export const launcherRouter = express.Router();
 
-launcherRouter.get("/launchers", getLanchersController);
+launcherRouter.get("/launchers", getLaunchersController);
+launcherRouter.get("/launchers/id", getLaunchersByIdController);

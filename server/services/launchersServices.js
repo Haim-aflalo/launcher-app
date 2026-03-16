@@ -1,4 +1,8 @@
-import { addLauncherDal, getLauncherByIdDal } from "../dal/launchersDal.js";
+import {
+  addLauncherDal,
+  getLauncherByIdDal,
+  removeLauncherDal,
+} from "../dal/launchersDal.js";
 
 export async function getLauncherByIdService(id) {
   try {
@@ -25,7 +29,7 @@ export async function addLauncherService(data) {
     ) {
       throw new Error("Invalid type of fields");
     } else if (
-      !rocketType.includes(["Shahab3", "Fetah110", "Radwan", "Kheibar"])
+      !["Shahab3", "Fetah110", "Radwan", "Kheibar"].includes(rocketType)
     ) {
       throw new Error("Invalid type of rockets");
     }
@@ -36,6 +40,17 @@ export async function addLauncherService(data) {
       longitude,
       name,
     });
+  } catch (error) {
+    console.error("an error occured:", error);
+  }
+}
+
+export async function removeLauncherService(id) {
+  try {
+    if (!id) {
+      throw new Error("id is missing");
+    }
+    return await removeLauncherDal(id);
   } catch (error) {
     console.error("an error occured:", error);
   }

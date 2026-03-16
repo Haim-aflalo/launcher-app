@@ -2,6 +2,7 @@ import { getLaunchersDal } from "../dal/launchersDal.js";
 import {
   addLauncherService,
   getLauncherByIdService,
+  removeLauncherService,
 } from "../services/launchersServices.js";
 
 export async function getLaunchersController(req, res) {
@@ -32,7 +33,17 @@ export async function addLauncherController(req, res) {
       longitude,
       name,
     });
-    res.status(200).json(newLauncher)
+    res.status(200).json(newLauncher);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function removeLauncherController(req, res) {
+  try {
+    const { id } = req.params;
+    await removeLauncherService(id);
+    res.status(200).json({ message: "launcher deleted successfully" });
   } catch (error) {
     res.json({ error: error.message });
   }

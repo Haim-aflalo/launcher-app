@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function LaunchersTable() {
+  const navigate = useNavigate();
   const [city, setCity] = useState("");
   const [launchers, setLaunchers] = useState([]);
 
@@ -12,21 +15,32 @@ function LaunchersTable() {
       console.error("an error occured", error);
     }
   }
+
+  function navToDetails(id) {
+    localStorage.setItem("id", id);
+    navigate("/launcherdetails");
+  }
   useEffect(() => {
     fetchLaunchers();
   }, [launchers]);
 
   return (
     <div>
-      <input type="text" onChange={(e) => setCity(e.target.value)} />
+      <input
+        type="text"
+        placeholder="filter by city"
+        onChange={(e) => setCity(e.target.value)}
+      />
       <ul>
         {launchers
           .filter((launcher) => launcher.city === city || city === "")
           .map((launcher) => (
             <li>
               <p>Name:{launcher.name}</p>
-              <p>Rocket Type:{launcher.rocketType}</p>
               <p>City:{launcher.city}</p>
+              <button onClick={() => navToDetails(launcher._id)}>
+                Get details
+              </button>
             </li>
           ))}
       </ul>

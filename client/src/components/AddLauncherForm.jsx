@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import axios from "axios";
 function AddLauncherForm() {
   const [name, setName] = useState("");
   const [rocketType, setRocketType] = useState("");
@@ -16,7 +16,6 @@ function AddLauncherForm() {
         longitude,
         city,
       });
-      console.log(result.data);
     } catch (error) {
       console.error("an error occured", error);
     }
@@ -27,7 +26,7 @@ function AddLauncherForm() {
       <form onSubmit={addLauncher}>
         <input
           type="text"
-          placeholder="enter your name"
+          placeholder="enter the rocket name"
           onChange={(e) => setName(e.target.value)}
         />
         <select

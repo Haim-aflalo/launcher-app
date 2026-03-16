@@ -22,6 +22,7 @@ function Details() {
     <ul>
       <li>id:{launcher._id}</li>
       <li>name:{launcher.name}</li>
+      <li>rocket type:{launcher.rocketType}</li>
       <li>latitude:{launcher.latitude}</li>
       <li>longitude:{launcher.longitude}</li>
       <li>city:{launcher.city}</li>

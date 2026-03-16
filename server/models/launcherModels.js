@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
-
-const launcherSchema = new Schema({
+export const launcherSchema = new mongoose.Schema({
   city: String,
   body: String,
   latitude: Number,

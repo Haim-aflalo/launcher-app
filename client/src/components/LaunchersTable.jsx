@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-function LaunchersTable(e) {
-  e.preventDefault();
+function LaunchersTable() {
   const [city, setCity] = useState("");
   const [launchers, setLaunchers] = useState([]);
 
@@ -21,12 +20,15 @@ function LaunchersTable(e) {
     <div>
       <input type="text" onChange={(e) => setCity(e.target.value)} />
       <ul>
-        {launchers.map((launcher) => (
-          <li>
-            <p>Name:{launcher.name}</p>
-            <p>City:{launcher.city}</p>
-          </li>
-        ))}
+        {launchers
+          .filter((launcher) => launcher.city === city || city === "")
+          .map((launcher) => (
+            <li>
+              <p>Name:{launcher.name}</p>
+              <p>Rocket Type:{launcher.rocketType}</p>
+              <p>City:{launcher.city}</p>
+            </li>
+          ))}
       </ul>
     </div>
   );

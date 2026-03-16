@@ -19,14 +19,17 @@ function Details() {
     getLauncherById();
   }, []);
   return (
-    <ul>
-      <li>id:{launcher._id}</li>
-      <li>name:{launcher.name}</li>
-      <li>rocket type:{launcher.rocketType}</li>
-      <li>latitude:{launcher.latitude}</li>
-      <li>longitude:{launcher.longitude}</li>
-      <li>city:{launcher.city}</li>
-    </ul>
+    <div className="details-page">
+      <h1>DETAILS PAGE</h1>
+      <ul className="details-card">
+        <li>id:{launcher._id}</li>
+        <li>name:{launcher.name}</li>
+        <li>rocket type:{launcher.rocketType}</li>
+        <li>latitude:{launcher.latitude}</li>
+        <li>longitude:{launcher.longitude}</li>
+        <li>city:{launcher.city}</li>
+      </ul>
+    </div>
   );
 }
 

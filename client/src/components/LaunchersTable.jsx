@@ -7,6 +7,7 @@ function LaunchersTable() {
   const [city, setCity] = useState("");
   const [rocketType, setRocketType] = useState("");
   const [launchers, setLaunchers] = useState([]);
+  console.log(launchers);
 
   async function fetchLaunchers() {
     try {
@@ -16,11 +17,23 @@ function LaunchersTable() {
       console.error("an error occured", error);
     }
   }
+  async function removeLauncher(id) {
+    try {
+      const result = await axios.delete(
+        `http://localhost:3000/api/launchers/${id}`,
+      );
+
+      setLaunchers(launchers.filter((launcher) => launcher._id !== id));
+    } catch (error) {
+      console.error("an error occured", error);
+    }
+  }
 
   function navToDetails(id) {
     localStorage.setItem("id", id);
     navigate("/launcherdetails");
   }
+
   useEffect(() => {
     fetchLaunchers();
   }, [rocketType, city]);
@@ -55,12 +68,15 @@ function LaunchersTable() {
               launcher.rocketType === rocketType || rocketType === "",
           )
           .map((launcher) => (
-            <li className="launcher-card">
+            <li key={launcher._id} className="launcher-card">
               <p>Name: {launcher.name}</p>
               <p>City: {launcher.city}</p>
               <p>rocket type: {launcher.rocketType}</p>
               <button onClick={() => navToDetails(launcher._id)}>
                 Get details
+              </button>
+              <button onClick={() => removeLauncher(launcher._id)}>
+                remove launcher
               </button>
             </li>
           ))}

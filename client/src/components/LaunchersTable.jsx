@@ -7,7 +7,7 @@ function LaunchersTable() {
   const [city, setCity] = useState("");
   const [rocketType, setRocketType] = useState("");
   const [launchers, setLaunchers] = useState([]);
-  console.log(launchers);
+ 
 
   async function fetchLaunchers() {
     try {
@@ -17,12 +17,13 @@ function LaunchersTable() {
       console.error("an error occured", error);
     }
   }
+
+  
   async function removeLauncher(id) {
     try {
       const result = await axios.delete(
         `http://localhost:3000/api/launchers/${id}`,
       );
-
       setLaunchers(launchers.filter((launcher) => launcher._id !== id));
     } catch (error) {
       console.error("an error occured", error);

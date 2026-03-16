@@ -6,6 +6,6 @@ const Launcher = mongoose.model("launchers", launcherSchema);
 export async function getLaunchersDal() {
   return await Launcher.find({});
 }
-export async function getLauncherByIdDal(id) {
+export async function getLaunchersByIdDal(id) {
   return await Launcher.findById(id).exec();
 }

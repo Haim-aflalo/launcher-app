@@ -8,7 +8,7 @@ function ProtectedRoutes(props) {
     return <Navigate to="/" replace />;
   }
   if (!authorized.includes(userType)) {
-    <Navigate to="/" replace />;
+    return <Navigate to="/" replace />;
   }
 }
 export default ProtectedRoutes;

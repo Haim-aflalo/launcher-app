@@ -62,7 +62,14 @@ export async function loginService(username, password) {
 
 export async function updateUserService(id, values) {
   try {
-    const keys = ["username", "password", "email", "user_type", "last_login"];
+    const keys = [
+      "_id",
+      "username",
+      "password",
+      "email",
+      "user_type",
+      "last_login",
+    ];
     const valuesKeys = Object.keys(values);
     if (!id) {
       throw new Error("id missing");

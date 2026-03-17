@@ -7,8 +7,10 @@ function RegisterForm() {
   const [email, setEmail] = useState("");
   const [user_type, setUser_Type] = useState("");
   const [users, setUsers] = useState([]);
-  const [isRegister, setIsRegister] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [toUpdate, setToUpdate] = useState(false);
   const userType = useAuth((state) => state.userType);
+
   async function fetchUsers() {
     try {
       const result = await axios.get(
@@ -36,24 +38,38 @@ function RegisterForm() {
       console.error("an error occured", error);
     }
   }
-
-  async function Register() {
+  async function updateUser(id) {
     try {
+      const url = "http://localhost:3000/api/auth/register/update";
+      const body = { id, username, password, email, user_type };
       const headers = {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       };
-      const result = await axios.post(
-        "http://localhost:3000/api/auth/register/create",
-        { username, password, email, user_type },
-      );
-      setIsRegister(!isRegister);
+      const result = await axios.put(url, body, headers);
+      console.log(result.data);
+
+      setFlag(!flag);
+    } catch (error) {
+      console.error("an error occured", error);
+    }
+  }
+
+  async function Register() {
+    try {
+      const url = "http://localhost:3000/api/auth/register/create";
+      const body = { username, password, email, user_type };
+      const headers = {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      const result = await axios.post(url, body, headers);
+      setFlag(!flag);
     } catch (error) {
       console.error("an error occured", error);
     }
   }
   useEffect(() => {
     fetchUsers();
-  }, [isRegister]);
+  }, [flag]);
   return (
     <div className="login-form">
       <h1>LOGIN</h1>
@@ -92,13 +108,47 @@ function RegisterForm() {
             <p>Password: {user.password}</p>
             <p>Email: {user.email}</p>
             <p>Type: {user.user_type}</p>
-            {/* <button onClick={() => navToDetails(launcher._id)}>
-            Get details
-          </button> */}
+            <button
+              onClick={() => {
+                setToUpdate(!toUpdate);
+              }}
+            >
+              Edit
+            </button>
+            {toUpdate && (
+              <div>
+                <input
+                  type="text"
+                  placeholder="enter your username"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="enter your password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <input
+                  type="email"
+                  placeholder="enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <select
+                  name="user_type"
+                  id="user_type"
+                  onChange={(e) => setUser_Type(e.target.value)}
+                >
+                  <option value="">Choose a user type</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Intelligence">Intelligence</option>
+                  <option value="Air Force">Air Force</option>
+                </select>
+                <button type="submit" onClick={() => updateUser(user._id)}>
+                  Send
+                </button>
+              </div>
+            )}
             {userType !== "Air Force" && (
-              <button onClick={() => removeUser(user._id)}>
-                remove launcher
-              </button>
+              <button onClick={() => removeUser(user._id)}>remove user</button>
             )}
           </li>
         ))}

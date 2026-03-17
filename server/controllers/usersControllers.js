@@ -52,9 +52,14 @@ export async function loginController(req, res) {
 
 export async function updateUserController(req, res) {
   try {
-    const { id, values } = req.body;
-    const updatedUser = await updateUserService(id, values);
-    res.status(200).json({ message: "Login successful", updatedUser });
+    const { id, username, password, email, user_type } = req.body;
+    const updatedUser = await updateUserService(id, {
+      username,
+      password,
+      email,
+      user_type,
+    });
+    res.status(200).json({ message: "update successful", updatedUser });
   } catch (error) {
     res.json({ error: error.message });
   }

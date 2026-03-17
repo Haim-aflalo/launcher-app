@@ -13,10 +13,39 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<LoginPage />} path="/" />
-          <Route element={<RegisterPage />} path="/register" />
-          <Route element={<LaunchersPage />} path="/launchers" />
-          <Route element={<AddLauncherPage />} path="/addlauncher" />
-          <Route element={<LauncherDetailsPage />} path="/launcherdetails" />
+
+          <Route element={<ProtectedRoutes authorized={["Admin"]} />}>
+            <Route element={<RegisterPage />} path="/register" exact />
+          </Route>
+
+          <Route
+            element={
+              <ProtectedRoutes
+                authorized={["Admin", "Intelligence", "Air Force"]}
+              />
+            }
+          >
+            <Route element={<LaunchersPage />} path="/launchers" exact />
+          </Route>
+
+          <Route
+            element={<ProtectedRoutes authorized={["Admin", "Intelligence"]} />}
+          >
+            <Route element={<AddLauncherPage />} path="/addlauncher" exact />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoutes
+                authorized={["Admin", "Intelligence", "Air Force"]}
+              />
+            }
+          >
+            <Route
+              element={<LauncherDetailsPage />}
+              path="/launcherdetails"
+              exact
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
@@ -24,44 +53,3 @@ function App() {
 }
 
 export default App;
-
-// return (
-//   <>
-//     <BrowserRouter>
-//       <Routes>
-//         <Route element={<LoginPage />} path="/" />
-
-//         <Route element={<ProtectedRoutes authorized={["Admin"]} />}>
-//           <Route element={<RegisterPage />} path="/register" exact />
-//         </Route>
-
-//         <Route
-//           element={
-//             <ProtectedRoutes
-//               authorized={["Admin", "Intelligence", "Air Force"]}
-//             />
-//           }
-//         >
-//           <Route element={<LaunchersPage />} path="/launchers" exact />
-//         </Route>
-
-//         <Route
-//           element={<ProtectedRoutes authorized={["Admin", "Intelligence"]} />}
-//         >
-//           <Route element={<AddLauncherPage />} path="/addlauncher" exact />
-//         </Route>
-//         <Route
-//           element={
-//             <ProtectedRoutes
-//               authorized={["Admin", "Intelligence", "Air Force"]}
-//             />
-//           }
-//         >
-//           <Route
-//             element={<LauncherDetailsPage />}
-//             path="/launcherdetails"
-//             exact
-//           />
-//         </Route>
-//       </Routes>
-//     </BrowserRouter>

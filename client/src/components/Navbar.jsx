@@ -4,6 +4,12 @@ import { useAuth } from "../states/useAuth";
 function Navbar() {
   const navigate = useNavigate();
   const userType = useAuth((state) => state.userType);
+
+  const setUserType = useAuth((state) => state.setUserType);
+  function exit() {
+    navigate("/");
+    setUserType("");
+  }
   return (
     <nav className="navbar">
       {userType === "Admin" && (
@@ -13,6 +19,7 @@ function Navbar() {
       {userType !== "Air Force" && (
         <button onClick={() => navigate("/addlauncher")}>Add launcher</button>
       )}
+      <button onClick={exit}>log out</button>
     </nav>
   );
 }

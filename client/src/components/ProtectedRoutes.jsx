@@ -2,11 +2,12 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../states/useAuth";
 
 function ProtectedRoutes(props) {
+  const { authorized } = props;
   const userType = useAuth((state) => state.userType);
   if (userType === "") {
-    <Navigate to="/" replace />;
+    return <Navigate to="/" replace />;
   }
-  if (!props.authorized.includes(userType)) {
+  if (!authorized.includes(userType)) {
     <Navigate to="/" replace />;
   }
 }

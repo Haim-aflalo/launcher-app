@@ -3,6 +3,7 @@ import {
   removeUserDal,
   loginDal,
   updateUserDal,
+  checkUser,
 } from "../dal/usersDal.js";
 
 export async function addUserService(data) {
@@ -21,6 +22,10 @@ export async function addUserService(data) {
       throw new Error("Invalid type of fields");
     } else if (!types.includes(user_type)) {
       throw new Error("Invalid type of user");
+    }
+    const isCreated = await checkUser(username, password, email, user_type);
+    if (isCreated) {
+      throw new Error("User Already Exist");
     }
     return await addUserDal({
       username,

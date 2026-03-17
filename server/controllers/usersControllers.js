@@ -16,9 +16,6 @@ export async function addUserController(req, res) {
       user_type,
       last_login: new Date().toISOString(),
     });
-
-    console.log(newUser);
-
     res.status(200).json(newUser);
   } catch (error) {
     res.json({ error: error.message });

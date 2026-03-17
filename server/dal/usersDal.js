@@ -22,3 +22,7 @@ export async function loginDal(username, password) {
 export async function updateUserDal(id, newValues) {
   return await User.findByIdAndUpdate(id, newValues);
 }
+
+export async function checkUser(username, password, email, user_type) {
+  return await User.findOne({ username, password, email, user_type });
+}

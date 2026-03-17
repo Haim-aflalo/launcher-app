@@ -5,5 +5,5 @@ export const userSchema = new mongoose.Schema({
   password: String,
   email: String,
   user_type: { type: String, enum: types },
-  last_login: Date,
+  last_login: { type: Date, default:   Date.now() },
 });

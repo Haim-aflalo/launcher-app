@@ -3,36 +3,35 @@ import {
   removeUserDal,
   loginDal,
   updateUserDal,
-  checkUser,
+  checkRole,
 } from "../dal/usersDal.js";
 
 export async function addUserService(data) {
-  const { username, password, email, user_type, last_login } = data;
+  const { username, password, email, user_type } = data;
   const types = ["Admin", "Air Force", "Intelligence"];
   try {
-    if (!username || !password || !email || !user_type || !last_login) {
+    if (!username || !password || !email || !user_type) {
       throw new Error("Some field are missing");
     } else if (
       typeof username !== "string" ||
       typeof password !== "string" ||
       typeof email !== "string" ||
-      typeof user_type !== "string" ||
-      typeof last_login !== "string"
+      typeof user_type !== "string"
     ) {
       throw new Error("Invalid type of fields");
     } else if (!types.includes(user_type)) {
       throw new Error("Invalid type of user");
     }
-    const isCreated = await checkUser(username, password, email, user_type);
-    if (isCreated) {
-      throw new Error("User Already Exist");
+    const isRoleExist = await checkRole(user_type);
+    if (isRoleExist) {
+      throw new Error("This Role Already Exist");
     }
     return await addUserDal({
       username,
       password,
       email,
       user_type,
-      last_login,
+      last_login: new Date(),
     });
   } catch (error) {
     console.error("an error occured:", error);

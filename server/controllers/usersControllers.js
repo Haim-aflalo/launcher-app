@@ -6,6 +6,7 @@ import {
 } from "../services/usersServices.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { getAllUsersDal, getLastConnectedDal } from "../dal/usersDal.js";
 export async function addUserController(req, res) {
   try {
     const { username, password, email, user_type } = req.body;
@@ -54,6 +55,23 @@ export async function updateUserController(req, res) {
     const { id, values } = req.body;
     const updatedUser = await updateUserService(id, values);
     res.status(200).json({ message: "Login successful", updatedUser });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function getLastConnectedUserController(req, res) {
+  try {
+    const lastConnected = await getLastConnectedDal();
+    res.status(200).json(lastConnected);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+export async function getAllUsersControllers(req, res) {
+  try {
+    const allUsers = await getAllUsersDal();
+    res.status(200).json(allUsers);
   } catch (error) {
     res.json({ error: error.message });
   }

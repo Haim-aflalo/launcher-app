@@ -1,16 +1,19 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import LaunchersPage from "./pages/LaunchersPage";
 import AddLauncherPage from "./pages/AddLauncherPage";
 import LauncherDetailsPage from "./pages/LauncherDetailsPage";
-
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Home />} path="/" />
+          <Route element={<LoginPage />} path="/" />
+          <Route element={<RegisterPage />} path="/register" />
+          <Route element={<LaunchersPage />} path="/launchers" />
           <Route element={<AddLauncherPage />} path="/addlauncher" />
           <Route element={<LauncherDetailsPage />} path="/launcherdetails" />
         </Routes>

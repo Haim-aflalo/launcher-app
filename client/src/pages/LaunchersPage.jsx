@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import LaunchersTable from "../components/LaunchersTable";
 
-function Home() {
+function LaunchersPage() {
   return (
     <div>
       <Navbar />
@@ -10,4 +10,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default LaunchersPage;

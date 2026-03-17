@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../states/useAuth";
 
 function LaunchersTable() {
   const navigate = useNavigate();
   const [city, setCity] = useState("");
   const [rocketType, setRocketType] = useState("");
   const [launchers, setLaunchers] = useState([]);
- 
+  const userType = useAuth((state) => state.userType);
 
   async function fetchLaunchers() {
     try {
@@ -18,7 +19,6 @@ function LaunchersTable() {
     }
   }
 
-  
   async function removeLauncher(id) {
     try {
       const result = await axios.delete(
@@ -76,9 +76,11 @@ function LaunchersTable() {
               <button onClick={() => navToDetails(launcher._id)}>
                 Get details
               </button>
-              <button onClick={() => removeLauncher(launcher._id)}>
-                remove launcher
-              </button>
+              {userType !== "Air Force" && (
+                <button onClick={() => removeLauncher(launcher._id)}>
+                  remove launcher
+                </button>
+              )}
             </li>
           ))}
       </ul>

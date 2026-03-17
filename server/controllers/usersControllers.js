@@ -7,6 +7,7 @@ import {
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { getAllUsersDal, getLastConnectedDal } from "../dal/usersDal.js";
+
 export async function addUserController(req, res) {
   try {
     const { username, password, email, user_type } = req.body;
@@ -15,7 +16,6 @@ export async function addUserController(req, res) {
       password,
       email,
       user_type,
-      last_login: new Date().toISOString(),
     });
     res.status(200).json(newUser);
   } catch (error) {
@@ -36,14 +36,14 @@ export async function removeUserController(req, res) {
 export async function loginController(req, res) {
   try {
     const { username, password } = req.body;
-    const user = loginService(username, password);
-    const payload = {
-      id: user.id,
-      user_type: user.user_type,
-    };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const user = await loginService(username, password);
+    const token = jwt.sign(
+      { id: user.id, user_type: user.user_type },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      },
+    );
     res.json({ message: "Login successful", token });
   } catch (error) {
     res.json({ error: error.message });

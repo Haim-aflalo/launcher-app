@@ -15,7 +15,7 @@ export async function removeUserDal(id) {
 export async function loginDal(username, password) {
   return await User.findOneAndUpdate(
     { username, password },
-    { last_login: new Date().now() },
+    { last_login: Date.now() },
   );
 }
 

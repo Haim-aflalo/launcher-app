@@ -10,9 +10,9 @@ import {
 import { checkToken } from "../middleware/checkToken.js";
 export const usersRouter = express.Router();
 
-usersRouter.post("/register/create", checkToken, addUserController);
+usersRouter.post("/register/create", addUserController);
 usersRouter.post("/login", loginController);
 usersRouter.delete("/register/delete/:id", checkToken, removeUserController);
 usersRouter.put("/register/update", checkToken, updateUserController);
 usersRouter.get("/getUser", checkToken, getLastConnectedUserController);
-usersRouter.get("/getAllUser", checkToken, getAllUsersControllers);
+usersRouter.get("/getAllUsers", checkToken, getAllUsersControllers);

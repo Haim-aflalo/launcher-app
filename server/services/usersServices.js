@@ -31,7 +31,7 @@ export async function addUserService(data) {
       password,
       email,
       user_type,
-      last_login: new Date(),
+      last_login: Date.now(),
     });
   } catch (error) {
     console.error("an error occured:", error);

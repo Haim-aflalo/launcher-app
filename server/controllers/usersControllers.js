@@ -5,7 +5,7 @@ import {
   updateUserService,
 } from "../services/usersServices.js";
 import jwt from "jsonwebtoken";
-
+import "dotenv/config";
 export async function addUserController(req, res) {
   try {
     const { username, password, email, user_type } = req.body;
@@ -14,8 +14,11 @@ export async function addUserController(req, res) {
       password,
       email,
       user_type,
+      last_login: new Date().toISOString(),
     });
-    newUser.last_login = new Date().now();
+
+    console.log(newUser);
+
     res.status(200).json(newUser);
   } catch (error) {
     res.json({ error: error.message });
@@ -40,7 +43,9 @@ export async function loginController(req, res) {
       id: user.id,
       user_type: user.user_type,
     };
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
     res.json({ message: "Login successful", token });
   } catch (error) {
     res.json({ error: error.message });

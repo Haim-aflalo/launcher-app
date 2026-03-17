@@ -7,7 +7,7 @@ import {
 
 export async function addUserService(data) {
   const { username, password, email, user_type, last_login } = data;
-  const types = ["Admin", "Air Force", "Intellignece"];
+  const types = ["Admin", "Air Force", "Intelligence"];
   try {
     if (!username || !password || !email || !user_type || !last_login) {
       throw new Error("Some field are missing");
@@ -16,7 +16,7 @@ export async function addUserService(data) {
       typeof password !== "string" ||
       typeof email !== "string" ||
       typeof user_type !== "string" ||
-      typeof last_login !== "Date"
+      typeof last_login !== "string"
     ) {
       throw new Error("Invalid type of fields");
     } else if (!types.includes(user_type)) {
